@@ -31,7 +31,28 @@ namespace Security.IDP
                     ClientSecrets = new [] { new Secret("codemazesecret".Sha512()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes =  { IdentityServerConstants.StandardScopes.OpenId,"companyApi" }
-                }
+                },
+                 new Client
+                 {
+                     ClientName = "Image Gallery",
+                     ClientId = "imagegalleryclient",
+                     AllowedGrantTypes = GrantTypes.Code,
+                     RequirePkce = true,
+                     RedirectUris = new List<string>()
+                     {
+                         "https://localhost:44391/signin-oidc"
+                     },
+                     PostLogoutRedirectUris = new List<string>()
+                     {
+                         "https://localhost:44391/signout-callback-oidc"
+                     },
+                     AllowedScopes =
+                     {
+                         IdentityServerConstants.StandardScopes.OpenId,
+                         IdentityServerConstants.StandardScopes.Profile
+                     },
+                     ClientSecrets = {new Secret("secret".Sha256())}
+                 }
             };
     }
 }
